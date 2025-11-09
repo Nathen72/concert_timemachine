@@ -6,10 +6,19 @@ import { useAudioEffects } from '../hooks/useAudioEffects';
 import { SetlistDisplay } from './SetlistDisplay';
 import { AudioControls } from './AudioControls';
 import { VenueInfo } from './VenueInfo';
+import type { Concert } from '../types';
 
-export const ConcertPlayer = ({ accessToken }: { accessToken: string }) => {
+export const ConcertPlayer = ({
+  accessToken,
+  dynamicConcerts,
+}: {
+  accessToken: string;
+  dynamicConcerts: Concert[];
+}) => {
   const { concertId } = useParams();
-  const concert = concerts.find(c => c.id === concertId);
+  // Search in both dynamic concerts and curated concerts
+  const allConcerts = [...dynamicConcerts, ...concerts];
+  const concert = allConcerts.find(c => c.id === concertId);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 

@@ -4,7 +4,9 @@ Experience legendary concerts from history as if you were there. Concert Time Ma
 
 ## Features
 
-- **5 Legendary Concerts**: Nirvana MTV Unplugged, Queen at Live Aid, Johnny Cash at Folsom Prison, Talking Heads' Stop Making Sense, and The Band's Last Waltz
+- **🎸 Search ANY Concert**: Search setlist.fm's database of 400,000+ concerts and play them instantly!
+- **5 Legendary Curated Concerts**: Nirvana MTV Unplugged, Queen at Live Aid, Johnny Cash at Folsom Prison, Talking Heads' Stop Making Sense, and The Band's Last Waltz
+- **Automatic Spotify Matching**: Songs are automatically matched and loaded from Spotify
 - **Spotify Integration**: Stream authentic recordings via Spotify Web Playback SDK
 - **Interactive Setlists**: Follow along as songs progress through the concert
 - **Venue Atmosphere**: Background images and crowd applause effects between songs
@@ -48,26 +50,45 @@ npm install
    - (For production) `https://your-app.vercel.app/callback`
 8. Click **Save**
 
-### 4. Configure Environment Variables
+### 4. (Optional) Set Up setlist.fm API for Concert Search
+
+**This step is optional but highly recommended!** With a setlist.fm API key, you can search and play ANY of 400,000+ concerts. Without it, you can only use the 5 curated concerts.
+
+1. Go to [setlist.fm API settings](https://www.setlist.fm/settings/api)
+2. Log in or create a free account
+3. Click **"Apply for an API key"**
+4. Fill out the application (free for non-commercial use)
+5. Wait for approval (usually within 24 hours)
+6. Once approved, copy your API key
+
+### 5. Configure Environment Variables
 
 ```bash
 # Copy the example file
 cp .env.example .env
 
-# Edit .env and add your Spotify Client ID
-VITE_SPOTIFY_CLIENT_ID=your_client_id_here
-VITE_REDIRECT_URI=http://localhost:5173/callback
+# Edit .env and add your credentials
 ```
 
-### 5. Run the Development Server
+Your `.env` file should look like this:
+
+```bash
+VITE_SPOTIFY_CLIENT_ID=your_spotify_client_id_here
+VITE_REDIRECT_URI=http://127.0.0.1:5173/callback
+
+# Optional - enables concert search feature
+VITE_SETLISTFM_API_KEY=your_setlistfm_api_key_here
+```
+
+### 6. Run the Development Server
 
 ```bash
 npm run dev
 ```
 
-Visit `http://localhost:5173` in your browser.
+Visit `http://127.0.0.1:5173` in your browser (use 127.0.0.1, not localhost!).
 
-### 6. (Optional) Add Crowd Audio Effect
+### 7. (Optional) Add Crowd Audio Effect
 
 To enable crowd applause between songs:
 
@@ -79,12 +100,27 @@ The app will work without this file, but crowd effects will be disabled.
 
 ## Usage
 
+### Basic Usage
+
 1. Click **"Connect with Spotify"** on the homepage
 2. Log in to your Spotify Premium account
 3. Authorize the app
-4. Browse the concert collection
+4. Browse the curated concert collection
 5. Click on a concert to start playing
 6. Use the player controls to navigate through the setlist
+
+### Search for Concerts (Requires setlist.fm API Key)
+
+1. Click on the **"Search Concerts"** tab
+2. Enter an artist name (e.g., "Pink Floyd", "Radiohead", "Bruce Springsteen")
+3. Click **Search**
+4. Browse through the search results
+5. Click on any concert to load it
+6. The app will automatically:
+   - Find all songs on Spotify
+   - Match them to the correct recordings
+   - Build a playable concert
+7. Your custom concerts are saved in the **"My Concerts"** tab for easy access
 
 ## Tech Stack
 

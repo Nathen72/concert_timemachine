@@ -3,9 +3,11 @@ import { useState, useEffect } from 'react';
 import { HomePage } from './components/HomePage';
 import { ConcertPlayer } from './components/ConcertPlayer';
 import { getAuthUrl, getAccessTokenFromUrl } from './utils/spotifyAuth';
+import type { Concert } from './types';
 
 function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [dynamicConcerts, setDynamicConcerts] = useState<Concert[]>([]);
 
   useEffect(() => {
     const token = getAccessTokenFromUrl();
@@ -14,6 +16,20 @@ function App() {
       window.history.pushState({}, '', '/');
     }
   }, []);
+
+  const handleConcertCreated = (concert: Concert) => {
+    setDynamicConcerts(prev => {
+      // Check if concert already exists, if so replace it
+      const existingIndex = prev.findIndex(c => c.id === concert.id);
+      if (existingIndex >= 0) {
+        const newConcerts = [...prev];
+        newConcerts[existingIndex] = concert;
+        return newConcerts;
+      }
+      // Otherwise add it to the beginning
+      return [concert, ...prev];
+    });
+  };
 
   const handleLogin = () => {
     window.location.href = getAuthUrl();
@@ -46,10 +62,24 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            <HomePage
+              accessToken={accessToken}
+              dynamicConcerts={dynamicConcerts}
+              onConcertCreated={handleConcertCreated}
+            />
+          }
+        />
         <Route
           path="/concert/:concertId"
-          element={<ConcertPlayer accessToken={accessToken} />}
+          element={
+            <ConcertPlayer
+              accessToken={accessToken}
+              dynamicConcerts={dynamicConcerts}
+            />
+          }
         />
         <Route path="/callback" element={<Navigate to="/" />} />
       </Routes>
