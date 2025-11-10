@@ -6,7 +6,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Search, List, Music2, Calendar, Star, Globe, Mic2 } from 'lucide-react'
+import { Search, List, Star } from 'lucide-react'
 import type { Concert } from '../types'
 
 interface HomePageProps {
@@ -33,60 +33,34 @@ export const HomePage = ({ accessToken, dynamicConcerts, onConcertCreated }: Hom
   )
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
-      <main className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        {/* Compact Hero Section */}
-        <div className="text-center space-y-6 mb-8 sm:mb-10">
-          <div className="space-y-3">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Concert Time Machine
-            </h1>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Experience legendary concerts from history. Search 400,000+ concerts or explore our curated collection.
-            </p>
-          </div>
-
-          {/* Compact Stats Row */}
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 py-4">
-            <div className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
-              <Music2 className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-              <span className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">400K+</span>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Concerts</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
-              <Mic2 className="h-5 w-5 text-pink-600 dark:text-pink-400" />
-              <span className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">50K+</span>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Artists</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
-              <Globe className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
-              <span className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">100+</span>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Countries</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
-              <Calendar className="h-5 w-5 text-violet-600 dark:text-violet-400" />
-              <span className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">70+</span>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Years</span>
-            </div>
-          </div>
+    <div className="min-h-screen">
+      <main className="container max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20">
+        {/* Clean, Minimal Hero Section */}
+        <div className="text-center space-y-4 mb-16 sm:mb-20">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
+            Concert Time Machine
+          </h1>
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Experience legendary concerts from history
+          </p>
         </div>
 
         {/* Tabs Navigation */}
-        <Tabs defaultValue="curated" onValueChange={setActiveTab} className="space-y-6">
-          <div className="flex flex-col gap-4">
-            {/* Tab Pills and Search */}
-            <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between bg-gray-50 dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-800">
-              <TabsList className="grid w-full lg:w-auto grid-cols-3 gap-2 bg-white dark:bg-gray-800 p-1 rounded-lg">
+        <Tabs defaultValue="curated" onValueChange={setActiveTab} className="space-y-10">
+          <div className="flex flex-col gap-6">
+            {/* Minimal Tab Pills and Search */}
+            <div className="flex flex-col lg:flex-row gap-6 items-stretch lg:items-center justify-between">
+              <TabsList className="inline-flex w-full lg:w-auto gap-1 bg-muted/50 p-1.5 rounded-lg border border-border/50">
                 <TabsTrigger
                   value="curated"
-                  className="flex items-center justify-center gap-2 text-sm px-4 py-2 rounded-md transition-all data-[state=active]:bg-purple-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+                  className="flex items-center justify-center gap-2 text-sm px-5 py-2.5 rounded-md transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm hover:bg-background/60"
                 >
                   <Star className="h-4 w-4" />
                   <span className="font-medium">Curated</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="search"
-                  className="flex items-center justify-center gap-2 text-sm px-4 py-2 rounded-md transition-all data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+                  className="flex items-center justify-center gap-2 text-sm px-5 py-2.5 rounded-md transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm hover:bg-background/60"
                 >
                   <Search className="h-4 w-4" />
                   <span className="font-medium">Search</span>
@@ -94,27 +68,27 @@ export const HomePage = ({ accessToken, dynamicConcerts, onConcertCreated }: Hom
                 {dynamicConcerts.length > 0 && (
                   <TabsTrigger
                     value="custom"
-                    className="flex items-center justify-center gap-2 text-sm px-4 py-2 rounded-md transition-all data-[state=active]:bg-violet-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+                    className="flex items-center justify-center gap-2 text-sm px-5 py-2.5 rounded-md transition-all data-[state=active]:bg-background data-[state=active]:shadow-sm hover:bg-background/60"
                   >
                     <List className="h-4 w-4" />
                     <span className="font-medium hidden sm:inline">My Concerts</span>
                     <span className="font-medium sm:hidden">Mine</span>
-                    <Badge variant="secondary" className="ml-1 text-xs bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300">
+                    <Badge variant="secondary" className="ml-1.5 text-xs px-1.5 py-0.5 rounded-md">
                       {dynamicConcerts.length}
                     </Badge>
                   </TabsTrigger>
                 )}
               </TabsList>
 
-              {/* Search Input - only show on curated and custom tabs */}
+              {/* Clean Search Input - only show on curated and custom tabs */}
               {(activeTab === 'curated' || activeTab === 'custom') && (
-                <div className="relative w-full lg:w-96">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                <div className="relative w-full lg:w-80">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                   <Input
                     placeholder="Search concerts..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 h-11 text-sm bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                    className="pl-11 h-11 text-sm border-border/50 focus:border-primary"
                   />
                 </div>
               )}
@@ -122,14 +96,14 @@ export const HomePage = ({ accessToken, dynamicConcerts, onConcertCreated }: Hom
           </div>
 
           {/* Curated Concerts */}
-          <TabsContent value="curated">
+          <TabsContent value="curated" className="mt-0">
             {filteredCurated.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-base font-medium text-gray-700 dark:text-gray-300">No concerts found matching "{searchQuery}"</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Try a different search term</p>
+              <div className="text-center py-20">
+                <p className="text-base font-medium text-foreground/80">No concerts found matching "{searchQuery}"</p>
+                <p className="text-sm text-muted-foreground mt-2">Try a different search term</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 lg:gap-6">
                 {filteredCurated.map((concert) => (
                   <ConcertCard
                     key={concert.id}
@@ -142,7 +116,7 @@ export const HomePage = ({ accessToken, dynamicConcerts, onConcertCreated }: Hom
           </TabsContent>
 
           {/* Search Tab */}
-          <TabsContent value="search">
+          <TabsContent value="search" className="mt-0">
             <ConcertSearch
               accessToken={accessToken}
               onConcertCreated={onConcertCreated}
@@ -150,23 +124,23 @@ export const HomePage = ({ accessToken, dynamicConcerts, onConcertCreated }: Hom
           </TabsContent>
 
           {/* Custom Concerts */}
-          <TabsContent value="custom">
+          <TabsContent value="custom" className="mt-0">
             {dynamicConcerts.length === 0 ? (
-              <div className="text-center py-12 px-4">
-                <p className="text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  You haven't created any custom concerts yet.
+              <div className="text-center py-20 px-4">
+                <p className="text-base font-medium text-foreground/80 mb-2">
+                  You haven't created any custom concerts yet
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Use the Search tab to find and create concerts from setlist.fm!
+                <p className="text-sm text-muted-foreground">
+                  Use the Search tab to find and create concerts from setlist.fm
                 </p>
               </div>
             ) : filteredCustom.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-base font-medium text-gray-700 dark:text-gray-300">No concerts found matching "{searchQuery}"</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Try a different search term</p>
+              <div className="text-center py-20">
+                <p className="text-base font-medium text-foreground/80">No concerts found matching "{searchQuery}"</p>
+                <p className="text-sm text-muted-foreground mt-2">Try a different search term</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 lg:gap-6">
                 {filteredCustom.map((concert) => (
                   <ConcertCard
                     key={concert.id}

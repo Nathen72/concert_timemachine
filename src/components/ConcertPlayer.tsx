@@ -75,20 +75,20 @@ export const ConcertPlayer = ({
 
   if (!concert) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <Card className="max-w-md w-full">
-          <CardContent className="pt-6 text-center space-y-4">
-            <div className="w-16 h-16 mx-auto bg-muted rounded-full flex items-center justify-center">
-              <Music className="h-8 w-8 text-muted-foreground" />
+      <div className="min-h-screen flex items-center justify-center p-6">
+        <Card className="max-w-md w-full border-border/50">
+          <CardContent className="pt-8 pb-6 text-center space-y-5">
+            <div className="w-16 h-16 mx-auto bg-muted/50 rounded-2xl flex items-center justify-center">
+              <Music className="h-7 w-7 text-muted-foreground/70" />
             </div>
             <div className="space-y-2">
-              <h1 className="text-2xl font-bold">Concert Not Found</h1>
-              <p className="text-muted-foreground">
-                The concert you're looking for doesn't exist.
+              <h1 className="text-2xl font-semibold">Concert not found</h1>
+              <p className="text-muted-foreground/80 text-sm">
+                The concert you're looking for doesn't exist
               </p>
             </div>
             <Link to="/">
-              <Button>
+              <Button className="mt-2">
                 <ChevronLeft className="h-4 w-4 mr-2" />
                 Back to Home
               </Button>
@@ -180,14 +180,14 @@ export const ConcertPlayer = ({
   const currentSong = concert.setlist[currentSongIndex]
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row overflow-hidden bg-gradient-to-br from-background via-background to-muted/20">
+    <div className="min-h-screen flex flex-col lg:flex-row overflow-hidden">
       {/* Main Player Area */}
       <div className="flex-1 flex flex-col relative overflow-y-auto">
-        {/* Header */}
-        <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-xl border-b">
-          <div className="container flex items-center justify-between h-16 px-4">
+        {/* Minimal Header */}
+        <div className="sticky top-0 z-10 bg-background/90 backdrop-blur-xl border-b border-border/40">
+          <div className="container max-w-5xl flex items-center justify-between h-16 px-6">
             <Link to="/">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="hover:bg-muted/50">
                 <ChevronLeft className="h-4 w-4 mr-2" />
                 Back
               </Button>
@@ -196,18 +196,19 @@ export const ConcertPlayer = ({
               variant="ghost"
               size="sm"
               onClick={() => setShowVenueDetails(true)}
+              className="hover:bg-muted/50"
             >
               <Info className="h-4 w-4 mr-2" />
-              Concert Info
+              Info
             </Button>
           </div>
         </div>
 
-        {/* Player Content */}
-        <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-8 lg:p-12">
-          <div className="w-full max-w-2xl space-y-8">
+        {/* Clean Player Content */}
+        <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-10 lg:p-16">
+          <div className="w-full max-w-lg space-y-10">
             {/* Album Art */}
-            <div className="aspect-square w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-2xl">
+            <div className="aspect-square w-full rounded-2xl overflow-hidden shadow-xl border border-border/50">
               {albumArtLoading ? (
                 <Skeleton className="w-full h-full" />
               ) : (
@@ -220,29 +221,29 @@ export const ConcertPlayer = ({
             </div>
 
             {/* Song Info */}
-            <div className="text-center space-y-2 px-4">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+            <div className="text-center space-y-3 px-4">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight">
                 {currentSong.title}
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground">
+              <p className="text-lg md:text-xl text-muted-foreground">
                 {concert.artist}
               </p>
-              <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground flex-wrap">
+              <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground/80 flex-wrap">
                 <span>{concert.venue}</span>
-                <span>•</span>
+                <span>·</span>
                 <span>{concert.date}</span>
-                <span>•</span>
+                <span>·</span>
                 <span>
-                  Track {currentSongIndex + 1} of {concert.setlist.length}
+                  {currentSongIndex + 1} of {concert.setlist.length}
                 </span>
               </div>
             </div>
 
-            {/* Player Controls */}
-            <Card>
+            {/* Refined Player Controls */}
+            <Card className="border-border/50">
               <CardContent className="pt-6 space-y-6">
                 {/* Progress Bar */}
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   <Slider
                     value={[30]}
                     max={100}
@@ -250,7 +251,7 @@ export const ConcertPlayer = ({
                     className="cursor-pointer"
                     disabled
                   />
-                  <div className="flex justify-between text-xs text-muted-foreground">
+                  <div className="flex justify-between text-xs text-muted-foreground/70">
                     <span>0:00</span>
                     <span>
                       {Math.floor(currentSong.durationMs / 60000)}:
@@ -262,27 +263,27 @@ export const ConcertPlayer = ({
                 </div>
 
                 {/* Main Controls */}
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center justify-center gap-3">
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={handlePrevious}
                     disabled={!isReady || currentSongIndex === 0}
-                    className="h-12 w-12"
+                    className="h-11 w-11 hover:bg-muted/50"
                   >
-                    <SkipBack className="h-6 w-6" />
+                    <SkipBack className="h-5 w-5" />
                   </Button>
 
                   <Button
                     size="icon"
                     onClick={isPlaying ? handlePause : handlePlay}
                     disabled={!isReady}
-                    className="h-16 w-16 rounded-full shadow-lg"
+                    className="h-14 w-14 rounded-full"
                   >
                     {isPlaying ? (
-                      <Pause className="h-8 w-8" />
+                      <Pause className="h-6 w-6" />
                     ) : (
-                      <Play className="h-8 w-8 ml-1" />
+                      <Play className="h-6 w-6 ml-0.5" />
                     )}
                   </Button>
 
@@ -293,9 +294,9 @@ export const ConcertPlayer = ({
                     disabled={
                       !isReady || currentSongIndex === concert.setlist.length - 1
                     }
-                    className="h-12 w-12"
+                    className="h-11 w-11 hover:bg-muted/50"
                   >
-                    <SkipForward className="h-6 w-6" />
+                    <SkipForward className="h-5 w-5" />
                   </Button>
                 </div>
 
@@ -305,7 +306,7 @@ export const ConcertPlayer = ({
                     variant="ghost"
                     size="icon"
                     onClick={toggleMute}
-                    className="h-9 w-9"
+                    className="h-9 w-9 hover:bg-muted/50"
                   >
                     {isMuted || volume[0] === 0 ? (
                       <VolumeX className="h-4 w-4" />
@@ -327,7 +328,7 @@ export const ConcertPlayer = ({
 
                 {/* Status */}
                 {!isReady && !error && (
-                  <p className="text-sm text-center text-muted-foreground">
+                  <p className="text-sm text-center text-muted-foreground/70">
                     Loading player...
                   </p>
                 )}
@@ -337,14 +338,14 @@ export const ConcertPlayer = ({
         </div>
       </div>
 
-      {/* Setlist Sidebar */}
-      <div className="w-full lg:w-96 border-t lg:border-t-0 lg:border-l bg-muted/30 flex flex-col max-h-[50vh] lg:max-h-screen">
-        <div className="p-4 border-b bg-background/50 backdrop-blur-sm sticky top-0 z-10">
-          <h2 className="text-lg font-semibold flex items-center gap-2">
-            <Music className="h-5 w-5" />
+      {/* Clean Setlist Sidebar */}
+      <div className="w-full lg:w-96 border-t lg:border-t-0 lg:border-l border-border/40 bg-muted/20 flex flex-col max-h-[50vh] lg:max-h-screen">
+        <div className="p-5 border-b border-border/40 bg-background/60 backdrop-blur-sm sticky top-0 z-10">
+          <h2 className="text-base font-semibold flex items-center gap-2">
+            <Music className="h-4 w-4" />
             Setlist
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground/70 mt-0.5">
             {concert.setlist.length} songs
           </p>
         </div>
@@ -354,31 +355,31 @@ export const ConcertPlayer = ({
             <button
               key={song.id}
               onClick={() => handleSongClick(index)}
-              className={`w-full text-left px-4 py-3 transition-all border-b hover:bg-muted/50 ${
+              className={`w-full text-left px-5 py-3.5 transition-all border-b border-border/30 hover:bg-muted/40 ${
                 index === currentSongIndex
-                  ? 'bg-primary/10 border-l-4 border-l-primary'
-                  : 'border-transparent'
+                  ? 'bg-muted/50 border-l-2 border-l-primary'
+                  : ''
               }`}
             >
               <div className="flex items-center gap-3">
                 <span
                   className={`text-sm font-mono w-6 ${
                     index === currentSongIndex
-                      ? 'text-primary font-bold'
-                      : 'text-muted-foreground'
+                      ? 'text-primary font-semibold'
+                      : 'text-muted-foreground/60'
                   }`}
                 >
                   {index + 1}
                 </span>
                 <div className="flex-1 min-w-0">
                   <p
-                    className={`font-medium truncate ${
+                    className={`font-medium truncate text-sm ${
                       index === currentSongIndex ? 'text-primary' : ''
                     }`}
                   >
                     {song.title}
                   </p>
-                  <p className="text-xs text-muted-foreground truncate">
+                  <p className="text-xs text-muted-foreground/70 truncate mt-0.5">
                     {Math.floor(song.durationMs / 60000)}:
                     {String(
                       Math.floor((song.durationMs % 60000) / 1000)
@@ -388,15 +389,15 @@ export const ConcertPlayer = ({
                 {index === currentSongIndex && isPlaying && (
                   <div className="flex gap-0.5 items-end h-4">
                     <div
-                      className="w-0.5 bg-primary animate-pulse"
+                      className="w-0.5 bg-primary animate-pulse rounded-full"
                       style={{ height: '40%' }}
                     />
                     <div
-                      className="w-0.5 bg-primary animate-pulse"
+                      className="w-0.5 bg-primary animate-pulse rounded-full"
                       style={{ height: '100%', animationDelay: '0.2s' }}
                     />
                     <div
-                      className="w-0.5 bg-primary animate-pulse"
+                      className="w-0.5 bg-primary animate-pulse rounded-full"
                       style={{ height: '60%', animationDelay: '0.4s' }}
                     />
                   </div>

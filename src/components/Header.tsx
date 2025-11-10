@@ -7,16 +7,16 @@ export function Header() {
   const { theme, setTheme } = useTheme()
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-950/70">
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-14 sm:h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 sm:gap-3 min-w-0 group">
-            <div className="relative w-8 h-8 sm:w-10 sm:h-10">
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow transition-all duration-300">
-                <Music className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
+      <div className="container max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex h-16 sm:h-20 items-center justify-between">
+          <Link to="/" className="flex items-center gap-3 min-w-0 group">
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10">
+              <div className="absolute inset-0 bg-foreground rounded-xl flex items-center justify-center transition-all duration-300 group-hover:opacity-80">
+                <Music className="h-4 w-4 sm:h-5 sm:w-5 text-background" />
               </div>
             </div>
-            <span className="font-bold text-base sm:text-lg md:text-xl bg-gradient-to-r from-violet-600 to-purple-600 dark:from-violet-400 dark:to-purple-400 bg-clip-text text-transparent truncate">
+            <span className="font-semibold text-base sm:text-lg tracking-tight truncate">
               Concert Time Machine
             </span>
           </Link>
@@ -26,10 +26,10 @@ export function Header() {
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
+              className="h-10 w-10 rounded-lg hover:bg-muted/50 transition-all"
             >
-              <Sun className="h-4 w-4 sm:h-5 sm:w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 sm:h-5 sm:w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <Sun className="h-[1.1rem] w-[1.1rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.1rem] w-[1.1rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
           </div>
