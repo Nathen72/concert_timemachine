@@ -7,7 +7,8 @@ export const AudioControls = ({
   onNext,
   onPrevious,
   isReady,
-  currentSong
+  currentSong,
+  error
 }: {
   isPlaying: boolean;
   onPlay: () => void;
@@ -16,6 +17,7 @@ export const AudioControls = ({
   onPrevious: () => void;
   isReady: boolean;
   currentSong: Song;
+  error?: string | null;
 }) => {
   return (
     <div className="bg-gray-900 bg-opacity-90 rounded-lg p-8">
@@ -23,8 +25,18 @@ export const AudioControls = ({
         <h2 className="text-3xl font-bold text-white mb-2">
           {currentSong.title}
         </h2>
-        {!isReady && (
-          <p className="text-sm text-yellow-400">Connecting to Spotify player...</p>
+        {error && (
+          <div className="mb-4 p-3 bg-red-900/50 border border-red-700 rounded-lg">
+            <p className="text-sm text-red-300">{error}</p>
+          </div>
+        )}
+        {!isReady && !error && (
+          <div className="space-y-2">
+            <p className="text-sm text-yellow-400">Connecting to Spotify player...</p>
+            <p className="text-xs text-gray-400">
+              Make sure you have Spotify Premium and that no other device is playing music.
+            </p>
+          </div>
         )}
       </div>
 
