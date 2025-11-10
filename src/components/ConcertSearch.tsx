@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Progress } from '@/components/ui/progress'
 import { Search, Loader2, Music, MapPin, Calendar, ArrowRight, AlertCircle } from 'lucide-react'
 
 interface ConcertSearchProps {
@@ -131,14 +133,10 @@ export const ConcertSearch = ({ accessToken, onConcertCreated }: ConcertSearchPr
 
       {/* Error State */}
       {error && (
-        <Card className="border-destructive">
-          <CardContent className="p-4 sm:p-6">
-            <div className="flex items-start gap-2 sm:gap-3 text-destructive">
-              <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 mt-0.5 flex-shrink-0" />
-              <p className="text-xs sm:text-sm">{error}</p>
-            </div>
-          </CardContent>
-        </Card>
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
       )}
 
       {/* Building Progress */}
@@ -151,12 +149,10 @@ export const ConcertSearch = ({ accessToken, onConcertCreated }: ConcertSearchPr
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-xs sm:text-sm">{buildProgress.message}</p>
                   {buildProgress.total > 0 && (
-                    <div className="mt-2 w-full bg-muted rounded-full h-1.5 sm:h-2">
-                      <div
-                        className="bg-primary h-1.5 sm:h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${(buildProgress.current / buildProgress.total) * 100}%` }}
-                      />
-                    </div>
+                    <Progress
+                      value={(buildProgress.current / buildProgress.total) * 100}
+                      className="mt-2"
+                    />
                   )}
                 </div>
               </div>
