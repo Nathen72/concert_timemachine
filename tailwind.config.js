@@ -1,26 +1,52 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: ["class"],
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
-        gray: {
-          950: '#0a0a0a',
-        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
         spotify: {
           green: '#1DB954',
@@ -28,33 +54,15 @@ export default {
           'green-active': '#1aa34a',
           black: '#191414',
         },
-        success: {
-          light: '#86efac',
-          DEFAULT: '#22c55e',
-          dark: '#15803d',
-        },
-        error: {
-          light: '#fca5a5',
-          DEFAULT: '#ef4444',
-          dark: '#dc2626',
-        },
-        warning: {
-          light: '#fcd34d',
-          DEFAULT: '#f59e0b',
-          dark: '#d97706',
-        },
-        info: {
-          light: '#93c5fd',
-          DEFAULT: '#3b82f6',
-          dark: '#1d4ed8',
-        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
         glow: '0 0 20px rgb(59 130 246 / 0.3)',
         'glow-lg': '0 0 40px rgb(59 130 246 / 0.4)',
-      },
-      backdropBlur: {
-        xs: '2px',
       },
       animation: {
         'fade-in': 'fadeIn 200ms ease-in',
@@ -62,6 +70,7 @@ export default {
         'slide-up': 'slideUp 300ms ease-out',
         'slide-down': 'slideDown 300ms ease-out',
         'scale-in': 'scaleIn 200ms ease-out',
+        'spin-slow': 'spin 3s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -85,16 +94,7 @@ export default {
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
       },
-      zIndex: {
-        dropdown: '1000',
-        sticky: '1100',
-        overlay: '1200',
-        modal: '1300',
-        popover: '1400',
-        toast: '1500',
-        tooltip: '1600',
-      },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 }
