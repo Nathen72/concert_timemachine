@@ -1,68 +1,70 @@
+/* Import Google Fonts - PRD Typography System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Neutral, sophisticated color palette inspired by mymind/every.to */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+    /* PRD Color Palette - Warm & Inviting Light Theme */
+    --background: 38 33% 97%; /* Cream Base #FAF8F3 */
+    --foreground: 0 0% 18%;    /* Charcoal #2D2D2D */
 
-    /* Softer, more elegant primary color */
-    --primary: 250 70% 60%;
+    /* Cards use pure white for elevation */
+    --card: 0 0% 100%;         /* Pure White */
+    --card-foreground: 0 0% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 18%;
+
+    /* Primary = Terracotta for CTAs and accents */
+    --primary: 23 39% 63%;     /* Terracotta #C89B7B */
     --primary-foreground: 0 0% 100%;
 
-    /* Subtle secondary tones */
-    --secondary: 0 0% 97%;
-    --secondary-foreground: 0 0% 20%;
+    /* Secondary = Soft Tan for subtle backgrounds */
+    --secondary: 38 40% 86%;   /* Soft Tan #E8DCC8 */
+    --secondary-foreground: 0 0% 18%;
 
-    /* Muted, minimal accent colors */
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 95%;
-    --accent-foreground: 0 0% 15%;
+    /* Muted = Light Gray for borders and subtle elements */
+    --muted: 0 0% 94%;         /* Light Gray #EFEFEF */
+    --muted-foreground: 0 0% 42%; /* Warm Gray #6B6B6B */
 
-    /* Refined borders and inputs */
-    --border: 0 0% 90%;
-    --input: 0 0% 92%;
-    --ring: 250 70% 60%;
+    --accent: 99 13% 67%;      /* Sage Green #A8B5A0 */
+    --accent-foreground: 0 0% 18%;
+
+    /* Borders always Light Gray, never harsh */
+    --border: 0 0% 94%;        /* Light Gray #EFEFEF */
+    --input: 0 0% 94%;
+    --ring: 23 39% 63%;        /* Terracotta for focus */
 
     /* Destructive state */
     --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Increased border radius for modern feel */
+    /* Border radius - 12px for cards per PRD */
     --radius: 0.75rem;
   }
 
   .dark {
-    /* Dark mode with softer, less harsh colors */
+    /* Optional dark mode - not primary in PRD but keeping functional */
     --background: 0 0% 8%;
     --foreground: 0 0% 95%;
     --card: 0 0% 10%;
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 10%;
     --popover-foreground: 0 0% 95%;
-
-    --primary: 250 70% 65%;
+    --primary: 23 39% 63%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 0 0% 14%;
     --secondary-foreground: 0 0% 90%;
-
     --muted: 0 0% 14%;
     --muted-foreground: 0 0% 60%;
     --accent: 0 0% 16%;
     --accent-foreground: 0 0% 90%;
-
     --border: 0 0% 18%;
     --input: 0 0% 16%;
-    --ring: 250 70% 65%;
-
+    --ring: 23 39% 63%;
     --destructive: 0 65% 50%;
     --destructive-foreground: 0 0% 100%;
   }
@@ -78,11 +80,12 @@
   body {
     margin: 0;
     padding: 0;
-    /* Premium font stack with better readability */
-    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    /* PRD Typography - Inter as primary font */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 16px;
     line-height: 1.6;
-    letter-spacing: -0.011em;
+    letter-spacing: 0;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -95,28 +98,60 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Typography scale for better hierarchy */
+  /* PRD Typography Scale */
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.2;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
   }
 
+  /* Hero text - Desktop 64px / Mobile 56px - Instrument Serif */
+  .text-hero {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(3.5rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  /* H1 - Desktop 48px / Mobile 40px - Instrument Serif */
   h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(2.5rem, 4vw, 3rem);
+    font-weight: 400;
   }
 
+  /* H2 - Desktop 32px / Mobile 28px - Inter Medium */
   h2 {
-    font-size: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2rem);
+    font-weight: 500;
   }
 
+  /* H3 - Desktop 24px / Mobile 20px - Inter Medium */
   h3 {
-    font-size: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 500;
   }
 
+  /* Body text - 16px */
   p {
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0;
+  }
+
+  /* Small text - 14px */
+  small, .text-small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Caption/mono text - 12px - IBM Plex Mono */
+  .text-caption, .text-mono {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
   }
 
   /* Focus styles for accessibility */
@@ -133,9 +168,9 @@
     cursor: pointer;
   }
 
-  /* Smooth, subtle transitions for interactive elements */
+  /* PRD Transitions - 200-300ms with smooth easing */
   button, a, input, textarea, select {
-    transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Custom scrollbar */
@@ -193,7 +228,17 @@
 }
 
 @layer components {
-  /* Refined glass-morphism utility */
+  /* PRD Card Hover Effect - Gentle lift + shadow + slight rotation */
+  .card-hover {
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px) scale(1.03) rotate(-1deg);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Subtle glass-morphism utility */
   .glass {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px) saturate(180%);
@@ -206,30 +251,33 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Subtle gradient text utility */
-  .gradient-text {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(250 60% 50%));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  /* PRD Decade-Based Accent Colors */
+  .accent-60s {
+    color: #D4A5A5; /* Dusty Rose for 1960s */
   }
 
-  /* Elegant card hover effect - more subtle */
-  .card-hover {
-    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  .accent-70s {
+    color: #C89B7B; /* Terracotta for 1970s */
   }
 
-  .card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px -8px rgb(0 0 0 / 0.08), 0 4px 8px -4px rgb(0 0 0 / 0.05);
+  .accent-80s {
+    color: #B8B5D4; /* Soft Lavender for 1980s */
   }
 
-  /* Skeleton loader with smoother animation */
+  .accent-90s {
+    color: #8FBBBB; /* Muted Teal for 1990s */
+  }
+
+  .accent-00s {
+    color: #A8B5A0; /* Sage Green for 2000s */
+  }
+
+  /* Skeleton loader with PRD colors */
   .skeleton {
     background: linear-gradient(
       90deg,
       hsl(var(--muted)) 0%,
-      hsl(var(--accent)) 50%,
+      hsl(var(--secondary)) 50%,
       hsl(var(--muted)) 100%
     );
     background-size: 200% 100%;

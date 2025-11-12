@@ -1,40 +1,89 @@
-import { Moon, Sun, Music } from "lucide-react"
+import { Music2, Search, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useTheme } from "@/components/theme-provider"
 import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
 
 export function Header() {
-  const { theme, setTheme } = useTheme()
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
-      <div className="container max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="sticky top-0 z-50 w-full border-b border-light-gray bg-white/80 backdrop-blur-xl"
+    >
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 sm:h-20 items-center justify-between">
+          {/* Logo */}
           <Link to="/" className="flex items-center gap-3 min-w-0 group">
-            <div className="relative w-9 h-9 sm:w-10 sm:h-10">
-              <div className="absolute inset-0 bg-foreground rounded-xl flex items-center justify-center transition-all duration-300 group-hover:opacity-80">
-                <Music className="h-4 w-4 sm:h-5 sm:w-5 text-background" />
+            <motion.div
+              whileHover={{ rotate: -5 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-10 h-10 sm:w-12 sm:h-12"
+            >
+              <div className="absolute inset-0 bg-terracotta rounded-xl flex items-center justify-center transition-all duration-300 group-hover:shadow-card">
+                <Music2 className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
+            </motion.div>
+            <div className="hidden sm:block">
+              <span className="font-display text-xl text-charcoal tracking-tight">
+                Concert Time Machine
+              </span>
             </div>
-            <span className="font-semibold text-base sm:text-lg tracking-tight truncate">
-              Concert Time Machine
-            </span>
+            <div className="sm:hidden">
+              <span className="font-display text-lg text-charcoal tracking-tight">
+                CTM
+              </span>
+            </div>
           </Link>
 
+          {/* Navigation */}
+          <nav className="hidden md:flex items-center gap-1">
+            <Link to="/">
+              <Button
+                variant="ghost"
+                className="text-warm-gray hover:text-charcoal hover:bg-cream-tan/50 transition-colors"
+              >
+                Discover
+              </Button>
+            </Link>
+            <Button
+              variant="ghost"
+              className="text-warm-gray hover:text-charcoal hover:bg-cream-tan/50 transition-colors"
+              disabled
+            >
+              Browse
+            </Button>
+            <Button
+              variant="ghost"
+              className="text-warm-gray hover:text-charcoal hover:bg-cream-tan/50 transition-colors"
+              disabled
+            >
+              My Collection
+            </Button>
+          </nav>
+
+          {/* Right Actions */}
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="h-10 w-10 rounded-lg hover:bg-muted/50 transition-all"
+              className="h-10 w-10 rounded-lg text-warm-gray hover:text-charcoal hover:bg-cream-tan/50 transition-all"
             >
-              <Sun className="h-[1.1rem] w-[1.1rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-[1.1rem] w-[1.1rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Toggle theme</span>
+              <Search className="h-5 w-5" />
+              <span className="sr-only">Search</span>
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-10 w-10 rounded-lg text-warm-gray hover:text-charcoal hover:bg-cream-tan/50 transition-all"
+            >
+              <User className="h-5 w-5" />
+              <span className="sr-only">Profile</span>
             </Button>
           </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   )
 }
