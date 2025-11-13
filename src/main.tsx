@@ -6,7 +6,7 @@ import { ThemeProvider } from './components/theme-provider'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="concert-tm-theme">
+    <ThemeProvider defaultTheme="light" storageKey="concert-tm-theme">
       <App />
     </ThemeProvider>
   </StrictMode>,

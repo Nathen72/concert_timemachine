@@ -1,8 +1,26 @@
+// Check if token is valid
+const isTokenValid = (accessToken: string | null): boolean => {
+  if (!accessToken) return false;
+  // Basic validation - token should be a non-empty string
+  return accessToken.trim().length > 0;
+};
+
+// Handle 401 errors by clearing invalid token
+const handleAuthError = () => {
+  localStorage.removeItem('spotify_access_token');
+  // Trigger a custom event that App.tsx can listen to
+  window.dispatchEvent(new CustomEvent('spotify-auth-error'));
+};
+
 // Fetch artist image from Spotify
 export const fetchArtistImage = async (
   artistName: string,
   accessToken: string
 ): Promise<string | null> => {
+  if (!isTokenValid(accessToken)) {
+    return null;
+  }
+
   try {
     const response = await fetch(
       `https://api.spotify.com/v1/search?${new URLSearchParams({
@@ -16,6 +34,11 @@ export const fetchArtistImage = async (
         },
       }
     );
+
+    if (response.status === 401) {
+      handleAuthError();
+      return null;
+    }
 
     if (!response.ok) return null;
 
@@ -39,8 +62,14 @@ export const fetchAlbumArt = async (
   trackUri: string,
   accessToken: string
 ): Promise<string | null> => {
+  if (!isTokenValid(accessToken)) {
+    return null;
+  }
+
   try {
     const trackId = trackUri.split(':')[2];
+    if (!trackId) return null;
+
     const response = await fetch(
       `https://api.spotify.com/v1/tracks/${trackId}`,
       {
@@ -48,9 +77,26 @@ export const fetchAlbumArt = async (
           'Authorization': `Bearer ${accessToken}`,
         },
       }
-    );
+    ).catch(() => {
+      // Catch network errors silently
+      return null;
+    });
 
-    if (!response.ok) return null;
+    if (!response) return null;
+
+    if (response.status === 401) {
+      handleAuthError();
+      return null;
+    }
+
+    // Silently handle 404s and other errors - some tracks may not exist
+    if (!response.ok) {
+      // Don't log 404s as they're expected for some tracks
+      if (response.status !== 404) {
+        console.warn(`Failed to fetch album art for track ${trackId}: ${response.status}`);
+      }
+      return null;
+    }
 
     const data = await response.json();
 
@@ -78,4 +124,51 @@ export const fetchConcertImages = async (
   ]);
 
   return { artistImage, albumArt };
+};
+
+// Cache for album art URLs to reduce API calls
+const albumArtCache = new Map<string, string | null>();
+
+// Fetch album art with caching
+export const fetchAlbumArtCached = async (
+  trackUri: string,
+  accessToken: string
+): Promise<string | null> => {
+  if (albumArtCache.has(trackUri)) {
+    return albumArtCache.get(trackUri) || null;
+  }
+
+  const art = await fetchAlbumArt(trackUri, accessToken);
+  albumArtCache.set(trackUri, art);
+  return art;
+};
+
+// Batch fetch album art for multiple tracks
+export const fetchBatchAlbumArt = async (
+  trackUris: string[],
+  accessToken: string
+): Promise<Map<string, string | null>> => {
+  const results = new Map<string, string | null>();
+  
+  // Fetch in parallel with a limit to avoid rate limiting
+  const batchSize = 10;
+  for (let i = 0; i < trackUris.length; i += batchSize) {
+    const batch = trackUris.slice(i, i + batchSize);
+    const promises = batch.map(async (uri) => {
+      const art = await fetchAlbumArtCached(uri, accessToken);
+      return { uri, art };
+    });
+    
+    const batchResults = await Promise.all(promises);
+    batchResults.forEach(({ uri, art }) => {
+      results.set(uri, art);
+    });
+    
+    // Small delay between batches to avoid rate limiting
+    if (i + batchSize < trackUris.length) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  }
+  
+  return results;
 };

@@ -28,7 +28,10 @@ export const ConcertSearch = ({ accessToken, onConcertCreated }: ConcertSearchPr
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!searchQuery.trim()) return
+    if (!searchQuery.trim()) {
+      setError('Please enter an artist name to search.')
+      return
+    }
 
     setIsSearching(true)
     setError(null)
@@ -112,7 +115,7 @@ export const ConcertSearch = ({ accessToken, onConcertCreated }: ConcertSearchPr
             />
             <Button
               type="submit"
-              disabled={isSearching || isBuilding || !searchQuery.trim()}
+              disabled={isSearching || isBuilding}
               className="h-10 w-full sm:w-auto px-6"
             >
               {isSearching ? (

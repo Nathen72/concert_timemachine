@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
 export const useAudioEffects = () => {
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -44,14 +44,14 @@ export const useAudioEffects = () => {
     };
   }, []);
 
-  const playCrowdApplause = () => {
+  const playCrowdApplause = useCallback(() => {
     if (crowdAudioRef.current) {
       crowdAudioRef.current.currentTime = 0;
       crowdAudioRef.current.play().catch((error) => {
         console.log('Could not play crowd applause:', error);
       });
     }
-  };
+  }, []);
 
   return { playCrowdApplause, audioContext: audioContextRef.current };
 };

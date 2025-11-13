@@ -28,10 +28,10 @@ export default function Toast({
   }, [id, duration, onClose]);
 
   const variantStyles = {
-    success: 'bg-success/20 border-success/30 text-success-light',
-    error: 'bg-error/20 border-error/30 text-error-light',
-    warning: 'bg-warning/20 border-warning/30 text-warning-light',
-    info: 'bg-primary-500/20 border-primary-500/30 text-primary-300',
+    success: 'bg-sage/20 border-sage/30 text-charcoal',
+    error: 'bg-red-100 border-red-300 text-red-700',
+    warning: 'bg-terracotta/20 border-terracotta/30 text-charcoal',
+    info: 'bg-lavender/20 border-lavender/30 text-charcoal',
   };
 
   const icons = {
